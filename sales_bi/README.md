@@ -23,20 +23,23 @@ This tool seems to offer a broad range of interesting data functionalities, but 
 In this project, we will create and populate a local PostgreSQL database with synthetic data, which will serve as the data source for `Briefer`. `Briefer` will connect directly to this database, allowing us to visualize the generated data in a seamless workflow. The main steps of the project are outlined as follows:
 
 1. **Database Setup**:
-   - We’ll use `SQLAlchemy` to establish the ORM (Object-Relational Mapping) and to create our local PostgreSQL database.
+   - We’ll use SQLAlchemy to establish the ORM (Object-Relational Mapping) and to create our local PostgreSQL database.
    
 2. **Data Generation**:
    - The `Faker` library will be employed to generate synthetic data for sales records.
    - We’ll create two tables: a **Sales** table to log individual sales transactions and a **Targets** table for performance targets.
 
-3. **Data Scheduling**:
-   - Since `Briefer` includes a scheduler, we will use it to periodically run the data generation script with `Faker`, simulating new sales data at set intervals.
+3. **Code Formatting with Ruff**:
+   - To ensure code quality and compliance with PEP-8 standards, we will use `Ruff`. This library is a fast linter and formatter for Python, offering quick feedback on formatting issues and supporting a wide range of linting rules. It will help keep the codebase clean, readable, and consistent.
 
-4. **Data Visualization with `Briefer`**:
-   - `Briefer` will be instantiated to create data visualizations from the sales data, allowing for quick exploration and sharing of insights.
+4. **Data Scheduling**:
+   - Since Briefer includes a scheduler, we will use it to periodically run the data generation script with `Faker`, simulating new sales data at set intervals.
 
-5. **Dashboard Access**:
-   - Finally, a link to the `Briefer` dashboard will be provided, enabling direct access to the visualizations.
+5. **Data Visualization with Briefer**:
+   - Briefer will be instantiated to create data visualizations from the sales data, allowing for quick exploration and sharing of insights.
+
+6. **Dashboard Access**:
+   - Finally, a link to the Briefer dashboard will be provided, enabling direct access to the visualizations.
 
 This overview gives a structured outline of how `Briefer` can be used for end-to-end data workflows, from data generation to visualization and sharing.
 
