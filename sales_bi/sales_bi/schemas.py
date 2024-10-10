@@ -25,6 +25,3 @@ class Targets(Base):
     target = Column(Float, nullable=False)
 
     seller_relationship = relationship('Sales')
-
-
-
