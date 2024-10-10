@@ -24,6 +24,8 @@ In this project, we will create and populate a local PostgreSQL database with sy
 
 1. **Database Setup**:
    - We’ll use SQLAlchemy to establish the ORM (Object-Relational Mapping) and to create our local PostgreSQL database.
+
+   ![alt text](image.png)
    
 2. **Data Generation**:
    - The `Faker` library will be employed to generate synthetic data for sales records.
@@ -44,8 +46,21 @@ In this project, we will create and populate a local PostgreSQL database with sy
 This overview gives a structured outline of how `Briefer` can be used for end-to-end data workflows, from data generation to visualization and sharing.
 
 
+# Project
+
+
+
+```bash
+git clone
+
+cd sales_bi 
+
+poetry update
+poetry shell 
+```
 
 ## Installation
 Step-by-step instructions on how to install and set up the project:
 1. Prerequisites (e.g., software versions, dependencies).
+- install postgress (https://www.postgresql.org/download/)
 2. Installation steps, including any specific commands or files required.
