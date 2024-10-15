@@ -1,9 +1,14 @@
+import os
+
+from dotenv import load_dotenv
 from schemas import Base
 from sqlalchemy import create_engine
 
-URI = """postgresql+psycopg2://postgres:admin@localhost:5432/postgres"""
+load_dotenv()
 
-engine = create_engine(URI)
+database_url = os.getenv('URI')
+
+engine = create_engine(database_url)
 
 Base.metadata.create_all(bind=engine)
 
