@@ -59,8 +59,13 @@ poetry update
 poetry shell 
 ```
 
+- install postgress (https://www.postgresql.org/download/)
+- create the database, by running  create_database.py
+
+
+
 ## Installation
 Step-by-step instructions on how to install and set up the project:
 1. Prerequisites (e.g., software versions, dependencies).
-- install postgress (https://www.postgresql.org/download/)
+
 2. Installation steps, including any specific commands or files required.

@@ -9,6 +9,7 @@ readme = "README.md"
 python = "^3.10"
 sqlalchemy = "^2.0.35"
 psycopg2 = "^2.9.9"
+faker = "^30.3.0"
 
 [tool.poetry.group.dev.dependencies]
 taskipy = "^1.13.0"
