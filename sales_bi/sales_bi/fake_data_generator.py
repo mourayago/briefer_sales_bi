@@ -4,10 +4,11 @@ from collections import defaultdict
 from datetime import datetime, timedelta
 
 from dotenv import load_dotenv
-from schemas import Sales
+from schemas import Sales, Targets
 from sellers import get_state_sales, set_sellers
 from sqlalchemy import create_engine, insert
 from sqlalchemy.orm import Session, sessionmaker
+from create_database import create_database
 
 load_dotenv()
 
@@ -35,6 +36,9 @@ class SalesDataGenerator:
         self.end_date = datetime.strptime(end_date, '%Y-%m-%d')
         self.sales_data = []
         self.targets = []
+
+    def creating_database_tables(self):
+        create_database()
 
     def generate_sales_data(self):
         """
@@ -94,38 +98,39 @@ class SalesDataGenerator:
         insert sales data into postgresql database
         """
         sales_data_fake = self.get_sales()
-        with Session() as session:
-            with engine.connect() as conn:
-                result = conn.execute(
-                    insert(Sales),
-                    sales_data_fake
-                )
-                conn.commit()
-                print('sales data inserted!')
+        with engine.connect() as conn:
+            conn.execute(
+                insert(Sales),
+                sales_data_fake
+            )
+            conn.commit()
+            print('sales data inserted!')
 
     def insert_targets_data(self):
         """
         insert sales data into postgresql database
         """
         target_data_fake = self.get_targets()
-        with Session() as session:
-            with engine.connect() as conn:
-                result = conn.execute(
-                    insert(Sales),
-                    target_data_fake
-                )
-                conn.commit()
-                print('target data inserted!')
+        with engine.connect() as conn:
+            conn.execute(
+                insert(Targets),
+                target_data_fake
+            )
+            conn.commit()
+            print('target data inserted!')
 
 
 # Usage example
 if __name__ == '__main__':
-    generator = SalesDataGenerator(5)
+
+    # generating the sellers list
+    generator = SalesDataGenerator(5, start_date='2023-01-01', end_date='2024-12-31')
 
     # inserting sales data
     generator.generate_sales_data()
-    sales = generator.get_sales()
     generator.insert_sales_data()
 
-    # inserting sales data
-    # generator.insert_targets_data()
+
+    # inserting target data
+    generator.calculate_targets()
+    generator.insert_targets_data()

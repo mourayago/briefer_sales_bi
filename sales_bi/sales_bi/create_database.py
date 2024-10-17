@@ -10,6 +10,9 @@ database_url = os.getenv('URI')
 
 engine = create_engine(database_url)
 
-Base.metadata.create_all(bind=engine)
+def create_database():
+    Base.metadata.create_all(bind=engine)
+    print('Tables created!')
 
-print('Tables created!')
+if __name__ == '__main__':
+    create_database()
