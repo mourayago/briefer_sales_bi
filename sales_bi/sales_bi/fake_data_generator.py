@@ -1,8 +1,21 @@
+import os
 import random
 from collections import defaultdict
 from datetime import datetime, timedelta
 
+from dotenv import load_dotenv
+from schemas import Sales
 from sellers import get_state_sales, set_sellers
+from sqlalchemy import create_engine, insert
+from sqlalchemy.orm import Session, sessionmaker
+
+load_dotenv()
+
+database_url = os.getenv('URI')
+
+engine = create_engine(database_url, echo=True)
+
+Session = sessionmaker(bind=engine)
 
 
 class SalesDataGenerator:
@@ -10,7 +23,7 @@ class SalesDataGenerator:
     Class to generate sales and target data for a specified number of sellers.
     """
 
-    def __init__(self, num_sellers, start_date='2024-01-01', end_date='2024-10-13'):
+    def __init__(self, num_sellers, start_date='2024-01-01', end_date='2024-10-31'):
         """
         Initialize the generator with a specified number of sellers and sales date range.
         :param num_sellers: Number of sellers to generate data for
@@ -69,17 +82,50 @@ class SalesDataGenerator:
         """
         return self.targets
 
+    def get_sales(self):
+        """
+        Returns sales fake data.
+        :return: List of target dictionaries
+        """
+        return self.sales_data
+
     def insert_sales_data(self):
-        pass
+        """
+        insert sales data into postgresql database
+        """
+        sales_data_fake = self.get_sales()
+        with Session() as session:
+            with engine.connect() as conn:
+                result = conn.execute(
+                    insert(Sales),
+                    sales_data_fake
+                )
+                conn.commit()
+                print('sales data inserted!')
 
     def insert_targets_data(self):
-        pass
+        """
+        insert sales data into postgresql database
+        """
+        target_data_fake = self.get_targets()
+        with Session() as session:
+            with engine.connect() as conn:
+                result = conn.execute(
+                    insert(Sales),
+                    target_data_fake
+                )
+                conn.commit()
+                print('target data inserted!')
 
 
 # Usage example
 if __name__ == '__main__':
-    generator = SalesDataGenerator(num_sellers=5)
+    generator = SalesDataGenerator(5)
+
+    # inserting sales data
     generator.generate_sales_data()
-    generator.calculate_targets()
-    targets = generator.get_targets()
-    print(targets)
+    sales = generator.get_sales()
+    generator.insert_sales_data()
+
+    # inserting sales data
+    # generator.insert_targets_data()
