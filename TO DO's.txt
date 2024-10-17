@@ -1,2 +1,4 @@
+- create postgres db on render
+    - insert this step on readme
 - Add the create database function inside the fake_data_generator
 - create app.py that call the fake_data_generator functions inside the file

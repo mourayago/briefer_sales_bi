@@ -8,13 +8,15 @@ from schemas import Sales, Targets
 from sellers import get_state_sales, set_sellers
 from sqlalchemy import create_engine, insert
 from sqlalchemy.orm import Session, sessionmaker
-from create_database import create_database
 
 load_dotenv()
 
-database_url = os.getenv('URI')
+host = os.getenv('RENDER_HOST')
+user = os.getenv('RENDER_USER')
+pswd = os.getenv('RENDER_PASSWORD')
+database = os.getenv('RENDER_DATABASE')
 
-engine = create_engine(database_url, echo=True)
+engine = create_engine(f'postgresql+psycopg2://{user}:{pswd}@{host}/{database}', echo=True)
 
 Session = sessionmaker(bind=engine)
 
@@ -37,8 +39,6 @@ class SalesDataGenerator:
         self.sales_data = []
         self.targets = []
 
-    def creating_database_tables(self):
-        create_database()
 
     def generate_sales_data(self):
         """

@@ -6,9 +6,12 @@ from sqlalchemy import create_engine
 
 load_dotenv()
 
-database_url = os.getenv('URI')
+host = os.getenv('RENDER_HOST')
+user = os.getenv('RENDER_USER')
+pswd = os.getenv('RENDER_PASSWORD')
+database = os.getenv('RENDER_DATABASE')
 
-engine = create_engine(database_url)
+engine = create_engine(f'postgresql+psycopg2://{user}:{pswd}@{host}/{database}')
 
 def create_database():
     Base.metadata.create_all(bind=engine)
