@@ -1,4 +1,4 @@
-# Sales BI on Briefer - Work in Progress
+# Sales BI on Briefer
 
 ### Description
 The objective of this project is to test Briefer, a new open-source data tool on the market. Briefer is a multiplayer notebook that allows you to run SQL and Python, turning notebooks into dashboards and data apps.
@@ -33,6 +33,7 @@ In this project, we will create and populate a local PostgreSQL database with sy
 
 3. **Code Formatting with Ruff**:
    - To ensure code quality and compliance with PEP-8 standards, we will use `Ruff`. This library is a fast linter and formatter for Python, offering quick feedback on formatting issues and supporting a wide range of linting rules. It will help keep the codebase clean, readable, and consistent.
+   - just run `task format`when necessary
 
 4. **Data Scheduling**:
    - Since Briefer includes a scheduler, we will use it to periodically run the data generation script with `Faker`, simulating new sales data at set intervals.
@@ -46,26 +47,66 @@ In this project, we will create and populate a local PostgreSQL database with sy
 This overview gives a structured outline of how `Briefer` can be used for end-to-end data workflows, from data generation to visualization and sharing.
 
 
-# Project
+# How to use - Installation
 
-
+## 1. Get dependencies
 
 ```bash
-git clone
+git clone git@github.com:mourayago/briefer_sales_bi.git
 
 cd sales_bi 
 
+poetry install
 poetry update
 poetry shell 
 ```
 
-- install postgress (https://www.postgresql.org/download/)
-- create the database, by running  create_database.py
+## 2. Create PostgreSQL Database
+
+Now you have two ways to create the postgress database
+
+- Localy:
+   - install postgress (https://www.postgresql.org/download/) 
+   - Safe database variables at .ENV file 
+```bash
+cd sales_bi
+
+python create_tables_database.py
+```
+
+- On render (cloud based):
+
+   - Go to Render (https://dashboard.render.com/) 
+   - Create PostgreSQL (https://dashboard.render.com/new/database)
+      - it can be created on free tier 
+   - Safe database variables at .ENV file 
+
+## Run the Project
+
+```bash
+cd sales_bi
+
+python fake_data_generator.py
+
+```
+The fake_data_generator.py file will be responsabile to generate sales and target fake danta and insert them into the database
 
 
+Now to run briefer you need to **open Docker** and run this command:
+```bash
+briefer
+```
+briefer will automatically download the image and the inside docker container and run the application in it
 
-## Installation
-Step-by-step instructions on how to install and set up the project:
-1. Prerequisites (e.g., software versions, dependencies).
 
-2. Installation steps, including any specific commands or files required.
+##  Prerequisites (e.g., software versions, dependencies).
+- Python 3.9 or above
+- Docker
+- Poetry
+
+
+# Inside Briefer
+
+- Go to Data Sources
+- Insert your postgreSQL credentials
+- Star playing with your data
