@@ -58,7 +58,7 @@ class SalesDataGenerator:
 
     def calculate_targets(self, margin=0.1, multiplier=30):
         """
-        Calculates monthly sales targets for each seller based on sales data.
+        Calculates monthly sales targets for each seller based on sales data and getting the target lower based on a random value.
         :param margin: Percentage margin added to the average sales for target calculation
         :param multiplier: Multiplier applied to the target value (default: 30)
         """
@@ -72,7 +72,7 @@ class SalesDataGenerator:
 
         for (seller_id, date_ref), values in calculated_data.items():
             avg_sales = values['total_sales'] / values['count']
-            target_value = avg_sales * (1 + margin) * multiplier
+            target_value = (avg_sales-random.randint(80, 200)) * (1 + margin) * multiplier
             self.targets.append({
                 'seller_id': seller_id,
                 'date_ref': date_ref,
@@ -126,7 +126,7 @@ if __name__ == '__main__':
     # generating the sellers list
     generator = SalesDataGenerator(5, start_date='2023-01-01', end_date='2024-12-31')
 
-    # inserting sales data
+    # # inserting sales data
     generator.generate_sales_data()
     generator.insert_sales_data()
 
